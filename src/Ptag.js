@@ -3,13 +3,13 @@ import { MoodContext } from './App';
 
 function Ptag(props) {
 
-  const {get}     =   useContext(MoodContext)
+  const {mood}     =   useContext(MoodContext)
 
   return (
     <>
       <div style={{ marginTop: "25px" }}>
           <p>Current span count : {props.mycount}</p>
-          <p>{get().mood}</p>
+          <p>{mood}</p>
         </div>
     </>
   );

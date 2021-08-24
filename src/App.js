@@ -5,41 +5,49 @@ import Ptag from './Ptag';
 export const MoodContext = React.createContext();
 
 
+
+function moodFunction(){
+  let msg = {mood: "I am 🥸"}
+
+  const set =  (mood) =>     msg = {mood};
+  const get = () => ({...msg })
+  return {set,get  };   
+
+}
+
+const moodeFn = moodFunction();
+
+
 function App() {
 
   const moods = {
-    happy: 'I am 😇',
-    sad: 'I am 😟'
+    happy: 'I am happy 😇',
+    sad: 'I am sad 😟'
   }
 
   const [count, setCount] = useState(0);
   const [spanCount, setSpanCount] = useState(0);
   
 
-  function moodFunction(){
-    let mood = "I am 🥸";
-    const set = (m) =>  mood = m;
-    const get = ()  =>  mood;
-    return {set,get};   
-  }
   
-  let moood_fun = moodFunction();
+  let {set,get} = moodeFn
 
   useEffect(() => {
+    
     setSpanCount(count);
     document.title = count;
     console.log('Running effects')
     console.log(count);
     if(count % 2 === 0)
     {
-      moood_fun.set(moods.happy);
+      set(moods.happy);
     }
     else 
     {
-      moood_fun.set(moods.sad);
+      set(moods.sad);
     }
 
-    console.log(moood_fun.get())
+    
 
     return (() => {
       document.title = 0
@@ -49,7 +57,7 @@ function App() {
   
   return (
     <>
-      <MoodContext.Provider value={moodFunction()}>
+      <MoodContext.Provider value={{get}}>
       <div style={{ padding: "25px" }}>
         <div>
           <button onClick={() => { setCount(count + 1) }}>Increase</button>
